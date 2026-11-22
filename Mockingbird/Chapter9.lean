@@ -101,13 +101,11 @@ Or: A has a coincidence point with every bird. -/
 def IsAgreeable (A : Bird) : Prop :=
   ∀ B : Bird, ∃ C : Bird, AgreeOn A B C
 
--- The forest contains an agreeable bird G.
--- Or: some bird has a coincidence point with every bird.
-variable {G : Bird} (g_agreeable : IsAgreeable G)
-
-include exists_composition g_agreeable in
+include exists_composition in
 /-- Problem 3: Given composition and an agreeable bird, every bird is fond of at least one bird. -/
-theorem every_bird_is_fond_alternative (A : Bird) :
+theorem every_bird_is_fond_alternative {G : Bird}
+    (g_agreeable : IsAgreeable G)
+    (A : Bird) :
     ∃ B : Bird, IsFondOf A B := by
   -- Define AG:
   --                ┌──────── AG ────────┐
