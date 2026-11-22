@@ -1,0 +1,8 @@
+# Lake build output and dependencies
+/.lake/
+
+# macOS
+.DS_Store
+
+# Local only
+/Mockingbird/Scratches/

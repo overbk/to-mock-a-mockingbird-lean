@@ -1,0 +1,5 @@
+name = "mockingbird"
+defaultTargets = ["Mockingbird"]
+
+[[lean_lib]]
+name = "Mockingbird"
