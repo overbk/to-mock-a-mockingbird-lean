@@ -459,6 +459,83 @@ theorem exists_identity_bird :
 
 /-! ## Identity Birds -/
 
+variable {I : Bird} (i_identity : IsIdentity I)
+
+/-! ### Problem 20 -/
+
+include i_identity in
+/-- Problem 20: If an identity bird is agreeable, every bird is fond
+of at least one bird. -/
+theorem every_bird_is_fond_agreeable_identity
+    (i_agreeable : IsAgreeable I)
+    (A : Bird) :
+    ∃ B : Bird, IsFondOf A B := by
+  obtain ⟨C, i_a_agree⟩ := i_agreeable A
+  exists C
+  calc
+    A C = I C := i_a_agree.symm
+    _ = C := i_identity C
+
+/-! ### Problem 21 -/
+
+include i_identity in
+/-- Problem 21: If every bird is fond of at least one bird, then identity birds
+are agreeable. -/
+theorem fondness_imp_agreeableness_of_identity
+    (every_bird_is_fond : ∀ A : Bird, ∃ B : Bird, IsFondOf A B) :
+    IsAgreeable I := by
+  intro A
+  obtain ⟨B, a_fond_b⟩ := every_bird_is_fond A
+  exists B
+  calc
+    I B = B := i_identity B
+    _ = A B := a_fond_b.symm
+
+/-! ### Problem 22 -/
+
+include i_identity in
+/-- Problem 22.1: Given I, if any two birds are compatible, then every bird is normal.
+Or: Every element has a fixed point. -/
+theorem identity_and_compatible_imp_is_normal
+    (all_compatible : ∀ A B : Bird, AreCompatible A B)
+    (A : Bird) :
+    IsNormal A := by
+  obtain ⟨B, iab_b⟩ := are_compatible_iff.mp (all_compatible A I)
+  exists B
+  calc
+    A B = I (A B) := (i_identity (A B)).symm
+    _ = B := iab_b
+
+include i_identity in
+/-- Problem 22.2: Given an identity bird, if any two birds are compatible,
+then identity bird I is agreeable.
+Or: I has a coincidence point with every bird. -/
+theorem identity_and_compatible_imp_agreeable_identity
+    (all_compatible : ∀ A B : Bird, AreCompatible A B) :
+    IsAgreeable I := by
+  intro A
+  obtain ⟨B, iab_b⟩ := are_compatible_iff.mp (all_compatible A I)
+  exists B
+  calc
+    I B = B := i_identity B
+    _ = I (A B) := iab_b.symm
+    _ = A B := i_identity (A B)
+
+/-! ### Problem 23 -/
+
+include i_identity in
+/-- Problem 23: If an identity bird is hopelessly egocentric, it is the only bird.
+Or: The forest is trivial. -/
+theorem hopelessly_egocentric_identity_birds_are_lonely
+    (i_hopelessly_egocentric : IsHopelesslyEgocentric I)
+    (A : Bird) :
+    I = A :=
+  calc
+    I = I A := (i_hopelessly_egocentric A).symm
+    _ = A := i_identity A
+
+/-! ## Larks -/
+
 -- To be continued.
 
 end Chapter9
