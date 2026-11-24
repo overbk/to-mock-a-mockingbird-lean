@@ -536,6 +536,25 @@ theorem hopelessly_egocentric_identity_birds_are_lonely
 
 /-! ## Larks -/
 
--- To be continued.
+def IsLark (L : Bird) : Prop := ∀ A B : Bird, L A B = A (B B)
+
+variable {L : Bird} (l_lark : IsLark L)
+
+/-! ### Problem 24 -/
+
+include i_identity l_lark in
+/-- Problem 24: Given an identity bird and a lark, there exists a mockingbird, to wit: L I.
+Or: L I = ω. -/
+theorem identity_and_lark_imp_mockingbird : IsMockingbird (L I) := by
+  intro A
+  calc
+    (L I) A = I (A A) := l_lark I A
+    _ = A A := i_identity (A A)
+
+/-! ### Problem 29 -/
+
+/- In problem 29, Smullyan writes an egocentric bird using only L's, with 12 of them, and asks
+whether a shorter expression exists. `Mockingbird/Extras/ShortestEgocentricLark.lean` shows that
+the minimum is 8 -/
 
 end Chapter9
