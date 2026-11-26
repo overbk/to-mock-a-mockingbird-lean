@@ -551,7 +551,40 @@ theorem identity_and_lark_imp_mockingbird : IsMockingbird (L I) := by
     (L I) A = I (A A) := l_lark I A
     _ = A A := i_identity (A A)
 
+/-! ### Problem 25 -/
+
+include l_lark in
+/-- Problem 25: Given a lark, every bird is happy. -/
+theorem lark_imp_happy (A : Bird) : IsHappy A := by
+  apply normal_birds_are_happy
+  exists L A (L A)
+  exact (l_lark A (L A)).symm
+
+/-! ### Problem 26 -/
+
+include l_lark in
+/-- Problem 26: If a lark is hopelessly egocentric, every bird is fond of it. -/
+theorem hopelessly_egocentric_larks_are_unusually_attractive
+    (l_hopelessly_egocentric : IsHopelesslyEgocentric L)
+    (A : Bird) :
+    IsFondOf A L :=
+  calc
+    A L = A (L L) := by rw [l_hopelessly_egocentric L]
+    _ = L A L := (l_lark A L).symm
+    _ = L L := by rw [l_hopelessly_egocentric A]
+    _ = L := l_hopelessly_egocentric L
+
+/-! ### Problem 27 -/
+
+-- TODO
+
+/-! ### Problem 28 -/
+
+-- TODO
+
 /-! ### Problem 29 -/
+
+-- TODO
 
 /- In problem 29, Smullyan writes an egocentric bird using only L's, with 12 of them, and asks
 whether a shorter expression exists. `Mockingbird/Extras/ShortestEgocentricLark.lean` shows that
